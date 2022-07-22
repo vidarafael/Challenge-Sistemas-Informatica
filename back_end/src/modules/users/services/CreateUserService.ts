@@ -9,6 +9,8 @@ interface IRequest {
   password: string;
 }
 
+type IResponse = Omit<IUser, 'password'>
+
 @injectable()
 class CreateUserService {
   constructor(
@@ -16,7 +18,7 @@ class CreateUserService {
     private usersRepository: IUsersRepository
   ) { }
 
-  async execute({ email, name, password }: IRequest): Promise<IUser> {
+  async execute({ email, name, password }: IRequest): Promise<IResponse> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email)
 
     if (userAlreadyExists) {
@@ -31,7 +33,13 @@ class CreateUserService {
       password: passwordHash
     })
 
-    return user
+    const userReturn = {
+      id: user.id,
+      email: user.email,
+      name: user.name
+    }
+
+    return userReturn
   }
 }
 

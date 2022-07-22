@@ -1,7 +1,7 @@
 import { Schema, model, Types, connect } from 'mongoose';
 
 interface IUser {
-  id?: Types.ObjectId;
+  id?: string;
   name: string;
   email: string;
   password: string;
