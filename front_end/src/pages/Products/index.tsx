@@ -1,12 +1,11 @@
-import { Box, Button, Img, Link, Text } from "@chakra-ui/react"
+import { Box, Link, Text } from "@chakra-ui/react"
 import { CardProduct } from "../../components/CardProduct"
 import { Header } from "../../components/Header"
-import { ChevronRightIcon } from '@chakra-ui/icons'
+import { Link as ReachLink } from "react-router-dom"
 
 function Products() {
   return (
     <>
-
       <Header />
       <Box
         width="100%"
@@ -22,7 +21,12 @@ function Products() {
             Produtos
           </Text>
 
-          <Link fontSize="1.25rem" fontWeight="bold">
+          <Link
+            as={ReachLink}
+            fontSize="1.25rem"
+            fontWeight="bold"
+            to="/favorites"
+          >
             Meus favoritos{' >'}
           </Link>
         </Box>
