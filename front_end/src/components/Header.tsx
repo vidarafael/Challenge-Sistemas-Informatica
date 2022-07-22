@@ -1,7 +1,10 @@
 import { Avatar, Box, Button, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
+import { useState } from "react"
 import noAvatar from "../assets/NoAvatar.png"
 
 function Header() {
+  const [avatarIsHovered, setAvatarIsHovered] = useState(false)
+
   return (
     <Box
       height={"100px"}
@@ -28,17 +31,21 @@ function Header() {
         </Box>
         <Box display="flex" alignItems="center">
           <Box mr="4" textAlign="right">
-            <Text>Rafael Freitas</Text>
+            <Text>Olá, seja bem vindo</Text>
             <Text color="gray.300" fontSize="small">
-              vidarafaelg@gmail.com
+              Rafael Freitas
             </Text>
           </Box>
           <Menu>
-            <MenuButton >
+            <MenuButton
+              onMouseOver={() => setAvatarIsHovered(true)}
+              onMouseLeave={() => setAvatarIsHovered(false)}
+            >
               <Avatar
                 name="Rafael Freitas"
                 src={noAvatar}
-                backgroundColor="black"
+                backgroundColor={avatarIsHovered ? "blue.500" : "black"}
+                transition={"0.3s"}
               />
             </MenuButton>
             <MenuList

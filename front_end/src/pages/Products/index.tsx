@@ -1,6 +1,7 @@
-import { Box, Button, Img, Text } from "@chakra-ui/react"
+import { Box, Button, Img, Link, Text } from "@chakra-ui/react"
 import { CardProduct } from "../../components/CardProduct"
 import { Header } from "../../components/Header"
+import { ChevronRightIcon } from '@chakra-ui/icons'
 
 function Products() {
   return (
@@ -12,9 +13,19 @@ function Products() {
         maxW="1280px"
         margin="50px auto"
       >
-        <Text fontSize="3xl" fontWeight="bold">
-          Produtos
-        </Text>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Text fontSize="3xl" fontWeight="bold">
+            Produtos
+          </Text>
+
+          <Link fontSize="1.25rem" fontWeight="bold">
+            Meus favoritos{' >'}
+          </Link>
+        </Box>
         <Box
           maxW="1280px"
           marginTop="50px"

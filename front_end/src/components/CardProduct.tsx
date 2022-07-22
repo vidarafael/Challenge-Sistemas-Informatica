@@ -49,7 +49,7 @@ function CardProduct({
         <Button
           marginTop="15px"
           backgroundColor="black"
-          _hover={{ backgroundColor: "yellow.500" }}
+          _hover={{ backgroundColor: "blue.500" }}
         >
           Adicionar aos favoritos
         </Button>
