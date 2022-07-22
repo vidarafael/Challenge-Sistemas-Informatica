@@ -2,15 +2,7 @@ import {
   Box,
   Link,
   Text,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr
 } from "@chakra-ui/react"
-import { CardProduct } from "../../components/CardProduct"
 import { Header } from "../../components/Header"
 import { Link as ReachLink } from "react-router-dom"
 import { TableFavorites } from "./TableFavorites"
@@ -38,7 +30,7 @@ function Favorites() {
             as={ReachLink}
             fontSize="1.25rem"
             fontWeight="bold"
-            to="/products"
+            to="/"
           >
             Ver produtos{' >'}
           </Link>

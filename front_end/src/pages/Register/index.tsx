@@ -1,8 +1,8 @@
 import { Box, VStack, Img, Input, Text, Button, Link } from "@chakra-ui/react"
-import logoEmpresa from "../../assets/LogoEmpresa.png"
 import { Link as ReachLink } from "react-router-dom"
+import { ChevronLeftIcon } from '@chakra-ui/icons'
 
-function Login() {
+function Register() {
   return (
     <Box
       height={"100vh"}
@@ -27,13 +27,48 @@ function Login() {
           flexDirection={"column"}
           alignItems="center"
         >
-          <Box backgroundColor="white" borderRadius="10px" marginTop="5px">
-            <Img src={logoEmpresa} />
+          <Box
+            borderRadius="10px"
+            marginTop="5px"
+            display="flex"
+            alignItems="center"
+            justifyContent="left"
+            width="100%"
+          >
+            <Link
+              as={ReachLink}
+              to="/login"
+              style={{ textDecoration: "none" }}
+            >
+              <Button
+                backgroundColor="blue.500"
+                _hover={{ backgroundColor: "blue.600" }}
+              >
+                <ChevronLeftIcon />
+                Voltar
+              </Button>
+            </Link>
           </Box>
         </Box>
         <Box textAlign="left">
           <form>
             <VStack align="stretch">
+              <label htmlFor="email">
+                <Text
+                  fontSize="1xl"
+                  fontWeight="bold"
+                >Nome</Text>
+              </label>
+              <Input
+                id="name"
+                type='text'
+                placeholder="Seu nome"
+                backgroundColor="blue.900"
+                variant='filled'
+                _hover={{ backgroundColor: "blue.500" }}
+              />
+            </VStack>
+            <VStack align="stretch" marginTop="30px">
               <label htmlFor="email">
                 <Text
                   fontSize="1xl"
@@ -76,20 +111,13 @@ function Login() {
             width="100%"
             backgroundColor="blue.500"
             _hover={{ backgroundColor: "blue.600" }}
-          >ENTRAR</Button>
-          <Box textAlign="center">
-            <Text fontSize="1rem" color="gray.400">Não possui conta?</Text>
-            <Link
-              fontSize="0.9rem"
-              as={ReachLink}
-              to="/register"
-            >Clique aqui para se registrar</Link>
-          </Box>
-
+          >
+            REGISTRAR
+          </Button>
         </Box>
       </Box>
     </Box >
   )
 }
 
-export { Login }
+export { Register }
