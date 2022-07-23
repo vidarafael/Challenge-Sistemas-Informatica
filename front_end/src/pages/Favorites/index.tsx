@@ -4,11 +4,28 @@ import {
   Text,
 } from "@chakra-ui/react"
 import { Header } from "../../components/Header"
-import { Link as ReachLink } from "react-router-dom"
+import { Link as ReachLink, useNavigate } from "react-router-dom"
 import { TableFavorites } from "./TableFavorites"
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import { useApp } from "../../AppContext";
+import { useEffect } from "react";
 
 function Favorites() {
+  const navigate = useNavigate()
+  const { getAllProductsFavorites, productsFavorites, user } = useApp()
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/")
+    }
+    async function execute() {
+      await getAllProductsFavorites()
+    }
+
+    execute();
+  }, [productsFavorites])
+
   return (
     <>
       <Header />
@@ -43,9 +60,14 @@ function Favorites() {
           justifyContent="center"
           gap="100px"
         >
-          <TableFavorites />
+          {productsFavorites.length <= 0 ? (
+            <Text fontSize="3xl" marginTop="50px">Nenhum produto encontrado...</Text>
+          ) : (
+            <TableFavorites productsFavorites={productsFavorites} />
+          )}
         </Box>
       </Box>
+      <ToastContainer />
     </>
   )
 }

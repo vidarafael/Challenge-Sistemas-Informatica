@@ -30,7 +30,7 @@ class AuthenticateUserService {
       throw new Error("Email or password incorrect")
     }
 
-    const comparePasswords = compare(password, userAlreadyExists.password)
+    const comparePasswords = await compare(password, userAlreadyExists.password)
 
     if (!comparePasswords) {
       throw new Error("Email or password incorrect")

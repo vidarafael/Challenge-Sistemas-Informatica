@@ -1,9 +1,12 @@
-import { Avatar, Box, Button, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
+import { Avatar, Box, Button, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
 import { useState } from "react"
+import { Link as ReachLink } from "react-router-dom"
+import { useApp } from "../AppContext"
 import noAvatar from "../assets/NoAvatar.png"
 
 function Header() {
   const [avatarIsHovered, setAvatarIsHovered] = useState(false)
+  const { user, logout } = useApp()
 
   return (
     <Box
@@ -33,7 +36,7 @@ function Header() {
           <Box mr="4" textAlign="right">
             <Text>Olá, seja bem vindo</Text>
             <Text color="gray.300" fontSize="small">
-              Rafael Freitas
+              {user ? user.name : 'Clique no avatar para logar na aplicação ->'}
             </Text>
           </Box>
           <Menu>
@@ -52,12 +55,29 @@ function Header() {
               backgroundColor="gray.700"
               border="none"
             >
-              <MenuItem
-                fontWeight="bold"
-                color="red.600"
-              >
-                Sair Da Aplicação
-              </MenuItem>
+              {user ? (
+                <MenuItem
+                  fontWeight="bold"
+                  color="red.600"
+                  onClick={() => logout()}
+                >
+                  Sair da aplicação
+                </MenuItem>
+              ) : (
+                <Link
+                  as={ReachLink}
+                  to="/login"
+                >
+                  <MenuItem
+                    fontWeight="bold"
+                    color="green.600"
+                  >
+                    Entrar na aplicação
+                  </MenuItem>
+                </Link>
+
+              )}
+
             </MenuList>
           </Menu>
         </Box>

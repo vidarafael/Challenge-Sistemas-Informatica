@@ -1,8 +1,16 @@
 import { Box, VStack, Img, Input, Text, Button, Link } from "@chakra-ui/react"
 import logoEmpresa from "../../assets/LogoEmpresa.png"
 import { Link as ReachLink } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+import { useApp } from "../../AppContext";
+import { useState } from "react";
 
 function Login() {
+  const { login } = useApp()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
     <Box
       height={"100vh"}
@@ -32,7 +40,10 @@ function Login() {
           </Box>
         </Box>
         <Box textAlign="left">
-          <form>
+          <form method="post" onSubmit={async (e) => {
+            e.preventDefault();
+            await login(email, password)
+          }}>
             <VStack align="stretch">
               <label htmlFor="email">
                 <Text
@@ -47,6 +58,7 @@ function Login() {
                 backgroundColor="blue.900"
                 variant='filled'
                 _hover={{ backgroundColor: "blue.500" }}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </VStack>
             <VStack align="stretch" marginTop="30px">
@@ -63,31 +75,32 @@ function Login() {
                 backgroundColor="blue.900"
                 variant='filled'
                 _hover={{ backgroundColor: "blue.500" }}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </VStack>
+
+            <Button
+              width="100%"
+              backgroundColor="blue.500"
+              type="submit"
+              marginTop="30px"
+              _hover={{ backgroundColor: "blue.600" }}
+            >
+              ENTRAR
+            </Button>
+
+            <Box textAlign="center" marginTop="30px">
+              <Text fontSize="1rem" color="gray.400">Não possui conta?</Text>
+              <Link
+                fontSize="0.9rem"
+                as={ReachLink}
+                to="/register"
+              >Clique aqui para se registrar</Link>
+            </Box>
           </form>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column" gap="20px"
-          alignItems="center"
-        >
-          <Button
-            width="100%"
-            backgroundColor="blue.500"
-            _hover={{ backgroundColor: "blue.600" }}
-          >ENTRAR</Button>
-          <Box textAlign="center">
-            <Text fontSize="1rem" color="gray.400">Não possui conta?</Text>
-            <Link
-              fontSize="0.9rem"
-              as={ReachLink}
-              to="/register"
-            >Clique aqui para se registrar</Link>
-          </Box>
-
-        </Box>
       </Box>
+      <ToastContainer />
     </Box >
   )
 }

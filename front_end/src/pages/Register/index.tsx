@@ -1,8 +1,19 @@
-import { Box, VStack, Img, Input, Text, Button, Link } from "@chakra-ui/react"
+import { Box, VStack, Input, Text, Button, Link } from "@chakra-ui/react"
 import { Link as ReachLink } from "react-router-dom"
 import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import { useApp } from "../../AppContext";
 
 function Register() {
+  const { register } = useApp()
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+
   return (
     <Box
       height={"100vh"}
@@ -51,7 +62,12 @@ function Register() {
           </Box>
         </Box>
         <Box textAlign="left">
-          <form>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+              await register(name, email, password)
+            }}
+          >
             <VStack align="stretch">
               <label htmlFor="email">
                 <Text
@@ -66,9 +82,10 @@ function Register() {
                 backgroundColor="blue.900"
                 variant='filled'
                 _hover={{ backgroundColor: "blue.500" }}
+                onChange={(e) => { setName(e.target.value) }}
               />
             </VStack>
-            <VStack align="stretch" marginTop="30px">
+            <VStack align="stretch" marginTop="20px">
               <label htmlFor="email">
                 <Text
                   fontSize="1xl"
@@ -82,9 +99,10 @@ function Register() {
                 backgroundColor="blue.900"
                 variant='filled'
                 _hover={{ backgroundColor: "blue.500" }}
+                onChange={(e) => { setEmail(e.target.value) }}
               />
             </VStack>
-            <VStack align="stretch" marginTop="30px">
+            <VStack align="stretch" marginTop="20px">
               <label htmlFor="password">
                 <Text
                   fontSize="1xl"
@@ -98,24 +116,23 @@ function Register() {
                 backgroundColor="blue.900"
                 variant='filled'
                 _hover={{ backgroundColor: "blue.500" }}
+                onChange={(e) => { setPassword(e.target.value) }}
               />
             </VStack>
+            <Button
+              width="100%"
+              backgroundColor="blue.500"
+              _hover={{ backgroundColor: "blue.600" }}
+              marginTop="25px"
+              type="submit"
+            >
+              REGISTRAR-SE
+            </Button>
           </form>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column" gap="20px"
-          alignItems="center"
-        >
-          <Button
-            width="100%"
-            backgroundColor="blue.500"
-            _hover={{ backgroundColor: "blue.600" }}
-          >
-            REGISTRAR
-          </Button>
-        </Box>
+
       </Box>
+      <ToastContainer />
     </Box >
   )
 }

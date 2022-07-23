@@ -25,6 +25,10 @@ class CreateUserService {
       throw new Error("User already exists")
     }
 
+    if (!password) {
+      throw new Error("No password")
+    }
+
     const passwordHash = await hash(password, 8)
 
     const user = await this.usersRepository.create({

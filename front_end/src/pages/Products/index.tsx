@@ -2,8 +2,13 @@ import { Box, Link, Text } from "@chakra-ui/react"
 import { CardProduct } from "../../components/CardProduct"
 import { Header } from "../../components/Header"
 import { Link as ReachLink } from "react-router-dom"
+import { useApp } from "../../AppContext"
+import { ToastContainer } from "react-toastify"
 
+import 'react-toastify/dist/ReactToastify.css';
 function Products() {
+  const { products } = useApp()
+
   return (
     <>
       <Header />
@@ -38,14 +43,19 @@ function Products() {
           justifyContent="center"
           gap="100px"
         >
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
-          <CardProduct title="Tênis Adidas" description="Tênis casual confortavel para todos os momentos." price={400} />
+          {products.map(product => (
+            <CardProduct
+              key={product._id}
+              _id={product._id}
+              title={product.title}
+              description={product.description}
+              price={product.price}
+              imageURL={product.imageURL}
+            />
+          ))}
         </Box>
       </Box>
+      <ToastContainer />
     </>
   )
 }

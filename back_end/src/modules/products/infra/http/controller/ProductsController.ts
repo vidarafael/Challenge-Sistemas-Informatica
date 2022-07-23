@@ -4,6 +4,7 @@ import { AddProductFavoriteByUserService } from '../../../services/AddProductFav
 import { CreateProductService } from '../../../services/CreateProductService'
 import { DeleteAllProductsFavoritesByUserService } from '../../../services/DeleteAllProductsFavoritesByUserService'
 import { FindAllProductsFavoritesByUserService } from '../../../services/FindAllProductsFavoritesByUserService'
+import { FindProductsService } from '../../../services/FindProductsService'
 
 class ProductsController {
   async create(request: Request, response: Response): Promise<void> {
@@ -38,12 +39,20 @@ class ProductsController {
     const addProductFavoriteByUserService = container.resolve(AddProductFavoriteByUserService)
 
     try {
-      const user = await addProductFavoriteByUserService.execute({ user_id: id, product_id: productId })
+      const userWithProduct = await addProductFavoriteByUserService.execute({ user_id: id, product_id: productId })
 
-      response.status(200).json(user)
+      response.status(200).json(userWithProduct)
     } catch (error) {
       response.status(400).json({ message: error.message })
     }
+  }
+
+  async find(request: Request, response: Response): Promise<void> {
+    const findProductsService = container.resolve(FindProductsService)
+
+    const products = await findProductsService.execute()
+
+    response.status(200).json(products)
   }
 
   async findAllProductsFavoritesByUser(request: Request, response: Response): Promise<void> {
