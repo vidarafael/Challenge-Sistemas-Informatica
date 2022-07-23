@@ -8,6 +8,14 @@ interface IRequest {
   password: string;
 }
 
+interface IResponse {
+  token: string;
+  user: {
+    email: string;
+    name: string;
+  }
+}
+
 @injectable()
 class AuthenticateUserService {
   constructor(
@@ -15,7 +23,7 @@ class AuthenticateUserService {
     private usersRepository: IUsersRepository,
   ) { }
 
-  async execute({ email, password }: IRequest): Promise<string> {
+  async execute({ email, password }: IRequest): Promise<IResponse> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email)
 
     if (!userAlreadyExists) {
@@ -33,7 +41,13 @@ class AuthenticateUserService {
       expiresIn: '1d'
     })
 
-    return token
+    return {
+      token,
+      user: {
+        email: userAlreadyExists.email,
+        name: userAlreadyExists.name
+      }
+    }
   }
 }
 
