@@ -21,8 +21,6 @@ async function ensureAuthenticated(
 
   const [, token] = authHeaders.split(" ")
 
-  console.log(process.env.JWT_SECRET)
-
   try {
     const { sub: user_id } = verify(token, process.env.JWT_SECRET) as IPayload
 
